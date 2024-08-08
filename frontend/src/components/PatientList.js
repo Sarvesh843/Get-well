@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {Doctor,Patient} from '../Data.js'
+import { useNavigate } from 'react-router-dom';
+
 
 const PatientList = () => {
+const navigate = useNavigate();
+
   const [doctors, setDoctors] = useState([]);
 console.log(Doctor);
 
