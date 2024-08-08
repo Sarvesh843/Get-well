@@ -1,12 +1,15 @@
 const User = require("../models/User");
+const Doctor = require("../models/docterprofile");
+const Patient = require("../models/patientProfile");
+
 const bcrypt = require("bcrypt");
 const { createAccessToken } = require("../utils/token");
 const { validateEmail } = require("../utils/validation");
 
 
-exports.signup = async (req, res) => {
+exports.doctorSignup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, profilePicture, phoneNumber, yearsOfExp } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ msg: "Please fill all the fields" });
     }
@@ -23,13 +26,47 @@ exports.signup = async (req, res) => {
       return res.status(400).json({ msg: "Invalid Email" });
     }
 
-    const user = await User.findOne({ email });
-    if (user) {
+    const doctor = await Doctor.findOne({ email });
+    if (doctor) {
       return res.status(400).json({ msg: "This email is already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password: hashedPassword });
+    await Doctor.create({ name, email, password: hashedPassword, profilePicture, phoneNumber, yearsOfExp });
+    res.status(200).json({ msg: "Congratulations!! Account has been created for you.." });
+  }
+  catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
+
+exports.patientSignup = async (req, res) => {
+  try {
+    const { name, email, password, profilePicture, phoneNumber, age, historyOfSurgery, historyOfillness } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ msg: "Please fill all the fields" });
+    }
+    if (typeof name !== "string" || typeof email !== "string" || typeof password !== "string") {
+      return res.status(400).json({ msg: "Please send string values only" });
+    }
+
+
+    if (password.length < 4) {
+      return res.status(400).json({ msg: "Password length must be atleast 4 characters" });
+    }
+
+    if (!validateEmail(email)) {
+      return res.status(400).json({ msg: "Invalid Email" });
+    }
+
+    const patient = await Patient.findOne({ email });
+    if (patient) {
+      return res.status(400).json({ msg: "This email is already registered" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await Patient.create({ name, email, password: hashedPassword, profilePicture, phoneNumber, age,historyOfSurgery, historyOfillness });
     res.status(200).json({ msg: "Congratulations!! Account has been created for you.." });
   }
   catch (err) {
@@ -42,12 +79,19 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password , roleType } = req.body;
     if (!email || !password) {
       return res.status(400).json({ status: false, msg: "Please enter all details!!" });
     }
 
-    const user = await User.findOne({ email });
+    let user=null;
+
+    if(roleType == 1){
+       user = await Doctor.findOne({ email });
+    }else if(roleType == 2){
+       user = await Patient.findOne({ email });
+    }
+
     if (!user) return res.status(400).json({ status: false, msg: "This email is not registered!!" });
 
     const isMatch = await bcrypt.compare(password, user.password);
