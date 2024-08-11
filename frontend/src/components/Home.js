@@ -16,7 +16,7 @@ const Home = () => {
     }
   return (
     <div className='HomeDiv'>
-        <div style={{border:'1px solid black',padding:'10px'}}>
+        <div style={{border:'3px solid black',padding:'10px', borderRadius:'10px', background:'#f8f9fa'}}>
             <h1>Welcome</h1>
         <h1>Please specify your role</h1>
         <div className='Home-inner' onClick={handleClickDoctor}>I am Doctor</div>

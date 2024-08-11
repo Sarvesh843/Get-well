@@ -47,7 +47,7 @@ const DoctorConsultationForm = () => {
       case 1:
         return (
           <div className="DoctorConsultant-outer">
-    <button style={{height:'44px',fontSize:"24px",margin:"10px"}} onClick={handleLogout}>LogOut</button>
+          <button style={{height:'44px',fontSize:"24px",margin:"10px"}} onClick={handleLogout}>LogOut</button>
 
             <div className="DoctorConsultant-inner">
               <div style={{margin: '10px'}}>
@@ -79,7 +79,8 @@ const DoctorConsultationForm = () => {
         );
       case 2:
         return (
-          <div>
+          <div className="DoctorConsultant-outer">
+          <div className="DoctorConsultant-inner">
             <h3>Family Medical History</h3>
             <div>
               <label>Diabetics</label>
@@ -116,6 +117,7 @@ const DoctorConsultationForm = () => {
               Previous
             </button>
             <button type="submit">Submit</button>
+          </div>
           </div>
         );
       default:

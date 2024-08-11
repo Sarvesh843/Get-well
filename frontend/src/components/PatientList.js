@@ -26,13 +26,13 @@ console.log(Doctor);
 
   }
   return (
-    <div>
+    <div style={{background:"beige"}}>
     <button style={{height:'44px',fontSize:"24px",margin:"10px"}} onClick={handleLogout}>LogOut</button>
 
-      <h1>Patient List</h1>
+      <h1 style={{marginLeft:"10%"}}>Patient List</h1>
       <div className="doctor-grid">
         {Patient.map(patient => (
-          <div key={patient.id} className="doctor-card">
+          <div key={patient.id} className="patient-card">
             <img className='profile' src={patient.profilePicture} alt={patient.name} />
             <h3>{patient.name}</h3>
             <p>Age: {patient.age}</p>

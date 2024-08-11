@@ -70,9 +70,10 @@ const navigate = useNavigate();
 
   }
   return (
-    <div>
+    <div style={{background:"beige", height:"100vh"}}>
    <button style={{height:'44px',fontSize:"24px",margin:"10px"}} onClick={handleLogout}>LogOut</button>
-      <form onSubmit={handleSubmit}>
+   <div style={{display:"flex", alignItems:"center", justifyContent:"center",}}>
+   <form onSubmit={handleSubmit} style={{border:"1px solid black", padding:"10px", background:"#f8f9fa", borderRadius:"5px"}}>
         {/* <h2>Prescription for {data1.name}</h2> */}
         <div>
           <label>Care</label>
@@ -84,6 +85,8 @@ const navigate = useNavigate();
         </div>
         <button type="submit">Submit Prescription</button>
       </form>
+   </div>
+      
    </div>
   );
 };

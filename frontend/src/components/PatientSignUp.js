@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const PatientSignUp = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const PatientSignUp = () => {
     name: "",
     age: "",
     email: "",
-    password:"",
+    password: "",
     phoneNumber: "",
     historyOfSurgery: "",
     historyOfillness: "",
@@ -26,12 +26,11 @@ const PatientSignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
 
     axios
       .post("https://get-well.onrender.com/api/auth/signup/patient", formData)
       .then((response) => {
-        navigate('/doctors');
+        navigate("/doctors");
         alert("Patient signed up successfully!");
       })
       .catch((error) => {
@@ -42,12 +41,17 @@ const PatientSignUp = () => {
   return (
     <div className="DoctorSignup">
       <form
-        style={{ border: "1px solid black", padding: "10px" }}
+        style={{
+          border: "3px solid black",
+          padding: "10px",
+          borderRadius: "10px",
+          background: "#f8f9fa",
+        }}
         onSubmit={handleSubmit}
       >
         <div>
           <label>Profile Picture</label>
-          <input type="file" name="profilePicture" onChange={handleChange} />
+          <input type="file" name="profilePicture" onChange={handleChange} style={{border:"0px", padding:"2px"}} />
         </div>
         <div>
           <label>Name</label>
@@ -80,9 +84,15 @@ const PatientSignUp = () => {
           />
         </div>
         <div>
-        <label>Password</label>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-      </div>
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div>
           <label>Phone Number</label>
           <input

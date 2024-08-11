@@ -25,9 +25,9 @@ console.log(Doctor);
 
   }
   return (
-    <div>
+    <div style={{background:"beige"}}>
     <button style={{height:'44px',fontSize:"24px",margin:"10px"}} onClick={handleLogout}>LogOut</button>
-      <h1>Doctors List</h1>
+      <h1 style={{marginLeft:"10%"}}>Doctors List</h1>
 
       <div className="doctor-grid">
         {Doctor.map(doctor => (
